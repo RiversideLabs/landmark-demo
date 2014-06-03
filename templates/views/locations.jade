@@ -1,0 +1,54 @@
+extends ../layouts/default
+
+mixin location(location)
+	.location.clearfix(data-ks-editable=editable(user, { list: 'Location', id: location.id }))
+		h2: a(href='/locations/location/' + location.slug)= location.commonName
+		p.lead.text-muted Added 
+			if location.publishedDate
+				| on #{location._.publishedDate.format('MMMM Do, YYYY')}
+		article.clearfix
+			if location.heroImage.exists
+				img(src=location._.heroImage.thumbnail(160,160), style='margin-left:10px').img.pull-right.img-thumbnail
+			if location.description.brief
+				p!= location.description.brief
+			if location.description.extended
+				p.read-more: a(href='/locations/location/' + location.slug) Read more...
+		hr(style='margin-top:20px')
+
+block intro
+	.container
+		h1= 'Locations'
+
+block content
+	.container: .row
+		.col-sm-8.col-md-9
+			if data.locations.results.length
+				if data.locations.totalPages > 1
+					h4.text-weight-normal Showing 
+						strong #{data.locations.first}
+						|  to 
+						strong #{data.locations.last}
+						|  of 
+						strong #{data.locations.total}
+						|  locations.
+				else
+					h4.text-weight-normal Showing #{utils.plural(data.locations.results.length, '* location')}.
+				.locations
+					each location in data.locations.results
+						+location(location)
+
+				if data.locations.totalPages > 1
+					ul.pagination
+						if data.locations.previous
+							li: a(href='?page=' + data.locations.previous): span.glyphicon.glyphicon-chevron-left
+						else
+							li.disabled: a(href='?page=' + 1): span.glyphicon.glyphicon-chevron-left
+						each p, i in data.locations.pages
+							li(class=data.locations.currentPage == p ? 'active' : null)
+								a(href='?page=' + (p == '...' ? (i ? data.locations.totalPages : 1) : p ))= p
+						if data.locations.next
+							li: a(href='?page=' + data.locations.next): span.glyphicon.glyphicon-chevron-right
+						else
+							li.disabled: a(href='?page=' + data.locations.totalPages): span.glyphicon.glyphicon-chevron-right
+			else
+				h3.text-muted There are no locations yet.
