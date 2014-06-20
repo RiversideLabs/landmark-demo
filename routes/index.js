@@ -46,6 +46,8 @@ exports = module.exports = function(app) {
 	app.get('/', routes.views.index);
   app.get('/locations', routes.views.locations);
   app.get('/locations/location/:location', routes.views.location);
+	app.get('/tours', routes.views.tours);
+	app.get('/tours/tour/:tour', routes.views.tour);
 	app.get('/blog/:category?', routes.views.blog);
 	app.get('/blog/post/:post', routes.views.post);
 	app.get('/gallery', routes.views.gallery);
@@ -56,10 +58,17 @@ exports = module.exports = function(app) {
 
   // API
 	app.all('/api*', landmark.initAPI);
+	
 	app.get('/api/location/list', landmark.initAPI, routes.api.locations.list);
-	app.all('/api/location/create', landmark.initAPI, routes.api.locations.create);
+	//app.all('/api/location/create', landmark.initAPI, routes.api.locations.create);
 	app.get('/api/location/:id', landmark.initAPI, routes.api.locations.get);
-	app.all('/api/location/:id/update', landmark.initAPI, routes.api.locations.update);
-	app.get('/api/location/:id/remove', landmark.initAPI, routes.api.locations.remove);
+	//app.all('/api/location/:id/update', landmark.initAPI, routes.api.locations.update);
+	//app.get('/api/location/:id/remove', landmark.initAPI, routes.api.locations.remove);
+	
+	app.get('/api/tour/list', landmark.initAPI, routes.api.tours.list);
+	//app.all('/api/tour/create', landmark.initAPI, routes.api.tours.create);
+	app.get('/api/tour/:id', landmark.initAPI, routes.api.tours.get);
+	//app.all('/api/tour/:id/update', landmark.initAPI, routes.api.tours.update);
+	//app.get('/api/tour/:id/remove', landmark.initAPI, routes.api.tours.remove);
 
 };

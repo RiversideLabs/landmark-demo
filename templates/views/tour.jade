@@ -1,0 +1,18 @@
+extends ../layouts/default
+
+block content
+	.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
+		article
+			p: a(href='/tours') &larr; back to tours listing
+			hr
+			if !data.tour
+				h2 Invalid Tour.
+			else
+				header
+					h1= data.tour.title
+					h5 Added 
+						if data.tour.publishedDate
+							| on #{data.tour._.publishedDate.format('MMMM Do, YYYY')}
+				.tour
+					if data.tour.description.full
+						!= data.tour.description.full

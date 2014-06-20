@@ -91,6 +91,7 @@ landmark.set('email tests', require('./routes/emails'));
 
 landmark.set('nav', {
 	'locations': 'locations',
+	'tours': 'tours',
 	'posts': ['posts', 'post-categories'],
 	'galleries': 'galleries',
 	'enquiries': 'enquiries',

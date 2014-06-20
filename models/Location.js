@@ -29,12 +29,8 @@ Location.add({
 	architecturalStyle: { type: Types.Text },
 	url: { type: Types.Url },
 	images: { type: Types.CloudinaryImages },
-	tours: {
-		type: { type: Types.Select, options: 'audio, video', default: 'audio', index: true },
-		title: { type: Types.Text },
-		url: { type: Types.S3File, label: 'Video/Audio File', note: '.MP3 (audio) or .MP4/.M4V (video) files only. Amazon S3 must be configured in your app settings.' },
-		length: { type: Types.Text },
-	}
+	// TODO: Sub-Collection support
+	tours: { type: Types.Relationship, ref: 'Tour', many: true }
 });
 
 Location.schema.pre('save', function(next) {
