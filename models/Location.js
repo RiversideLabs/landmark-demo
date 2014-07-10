@@ -29,7 +29,7 @@ Location.add({
 	architecturalStyle: { type: Types.Relationship, ref: 'ArchitecturalStyle', many: true },
 	url: { type: Types.Url },
 	images: { type: Types.CloudinaryImages },
-	tours: { type: Types.Relationship, ref: 'Tour', index: true, many: true, initial: true},
+	tours: { type: Types.Relationship, ref: 'Tour', index: true, many: true},
 });
 
 Location.relationship({ path: 'tours', ref: 'Tour', refPath: 'location' });
