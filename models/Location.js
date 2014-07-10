@@ -26,12 +26,13 @@ Location.add({
 	yearBuilt: { type: Types.Text },
 	architect: { type: Types.Text },
 	builder: { type: Types.Text },
-	architecturalStyle: { type: Types.Text },
+	architecturalStyle: { type: Types.Relationship, ref: 'ArchitecturalStyle', many: true },
 	url: { type: Types.Url },
 	images: { type: Types.CloudinaryImages },
-	// TODO: Sub-Collection support
-	tours: { type: Types.Relationship, ref: 'Tour', many: true }
+	tours: { type: Types.Relationship, ref: 'Tour', index: true, many: true, initial: true},
 });
+
+Location.relationship({ path: 'tours', ref: 'Tour', refPath: 'location' });
 
 Location.schema.pre('save', function(next) {
 	this.lastModified = Date.now();

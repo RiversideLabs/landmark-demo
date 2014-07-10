@@ -8,25 +8,38 @@ var landmark = require('landmark-serve'),
 
 var Tour = new landmark.List('Tour', {
 	map: { name: 'title' },
-	autokey: { path: 'slug', from: 'title', unique: true }
+	autokey: { path: 'slug', from: 'title', unique: true },
+	sortable: true,
+	sortContext: 'Location:tours'
 });
 
 Tour.add({
 	title: { type: String, required: true },
 	publishedDate: { type: Date, noedit: true, collapse: true, default: Date.now },
 	lastModified: { type: Date, noedit: true, collapse: true },
+	location: { type: Types.Relationship, ref: 'Location' },
 	type: { type: Types.Select, options: 'audio, video', default: 'audio', index: true },
-	url: { type: Types.S3File, label: 'Video/Audio File', note: '.MP3 (audio) or .MP4/.M4V (video) files only. Amazon S3 must be configured in your app settings.' },
-	length: { type: Types.Text },
-	description: {
-		brief: { type: Types.Html, wysiwyg: true, height: 150 },
-		extended: { type: Types.Html, wysiwyg: true, height: 400 }
-	}
+	url: { type: Types.S3File, label: 'Video/Audio File', allowedTypes:['audio/mp4', 'audio/mp3', 'video/mp4', 'video/x-m4v'], note: '.MP3 (audio) or .MP4/.M4V (video) files only. Amazon S3 must be configured in your app settings.' },
+	length: { type: Types.Text }
 });
 
 Tour.schema.pre('save', function(next) {
 	this.lastModified = Date.now();
 	next();
+});
+
+Tour.schema.post('save', function(done) {
+  var doc = this;
+  if(doc.location) {
+    landmark.list('Location').model.findOne().where('_id',doc.location).exec(function(err,data){
+      data.tours.push(doc);
+      data.save(function(err) {
+        if(err)console.log(err);
+        //console.log('end pre save txlog');
+        //ret();
+      });
+    });
+  }
 });
 
 Tour.schema.virtual('description.full').get(function() {
@@ -35,5 +48,5 @@ Tour.schema.virtual('description.full').get(function() {
 
 Tour.relationship({ ref: 'Location', path: 'tours' });
 
-Tour.defaultColumns = 'title, type|20%, publishedDate|20%';
+Tour.defaultColumns = 'title, location|20%, type|20%, publishedDate|20%';
 Tour.register();
