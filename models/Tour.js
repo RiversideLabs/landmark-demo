@@ -19,7 +19,7 @@ Tour.add({
 	lastModified: { type: Date, noedit: true, collapse: true },
 	location: { type: Types.Relationship, ref: 'Location' },
 	type: { type: Types.Select, options: 'audio, video', default: 'audio', index: true },
-	url: { type: Types.S3File, label: 'Video/Audio File', allowedTypes:['audio/mp4', 'audio/mp3', 'video/mp4', 'video/x-m4v'], note: '.MP3 (audio) or .MP4/.M4V (video) files only. Amazon S3 must be configured in your app settings.' },
+	url: { type: Types.S3File, label: 'Video/Audio File', allowedTypes:['audio/mp4', 'audio/mp3', 'audio/mpeg', 'video/mp4', 'video/x-m4v'], note: '.MP3 (audio) or .MP4/.M4V (video) files only. Amazon S3 must be configured in your app settings.' },
 	length: { type: Types.Text }
 });
 
