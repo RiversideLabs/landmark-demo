@@ -38,8 +38,8 @@ Location.add({
 Location.relationship({ path: 'tours', ref: 'Tour', refPath: 'location' });
 
 Location.schema.pre('save', function(next) {
-	this.heroThumb = this._.heroImage.thumbnail(640,300);
-	this.heroDetail = this._.heroImage.thumbnail(640,640);
+	this.heroThumb = this._.heroImage.thumbnail(640,300,{ quality: 60 });
+	this.heroDetail = this._.heroImage.thumbnail(640,640,{ quality: 60 });
 	this.lastModified = Date.now();
 	next();
 });
