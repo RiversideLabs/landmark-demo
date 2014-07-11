@@ -47,5 +47,10 @@ Location.schema.virtual('location.formattedAddress').get(function() {
 	return this.location.street1 + ', ' + this.location.suburb + ', ' + this.location.state + ' ' + this.location.postcode;
 });
 
+// Resize hero image for list view
+Location.schema.virtual('heroImage.thumb').get(function() {
+	if (this.heroImage.exists) return this._.heroImage.thumbnail(1000,470);
+});
+
 Location.defaultColumns = 'commonName, historicName|20%, yearBuilt|20%, publishedDate|20%';
 Location.register();
