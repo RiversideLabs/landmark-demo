@@ -18,7 +18,7 @@ block content
 							| on #{data.location._.publishedDate.format('MMMM Do, YYYY')}
 				.location
 					if data.location.heroImage.exists
-						.image-wrap(style='margin-bottom:20px'): img(src=data.location._.heroImage.fill(750,450)).img-responsive
+						.image-wrap(style='margin-bottom:20px'): img(src=data.location.heroThumb).img-responsive
 					if data.location.description.full
 						!= data.location.description.full
 					if data.location.plaqueText

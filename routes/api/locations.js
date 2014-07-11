@@ -1,5 +1,7 @@
 var async = require('async'),
-	landmark = require('landmark-serve');
+ landmark = require('landmark-serve'),
+		async = require('async'),
+				_ = require('underscore');
 
 var Location = landmark.list('Location'),
 				Tour = landmark.list('Tour');
@@ -19,7 +21,6 @@ exports.list = function(req, res) {
 
 	});
 	
-	
 }
 
 /**
@@ -29,8 +30,6 @@ exports.list = function(req, res) {
 exports.get = function(req, res) {
 	
 	Location.model.findById(req.params.id).populate('tours').populate('architecturalStyle').exec(function(err, item) {
-		
-		console.log(item);
 		
 		if (err) return res.apiError('database error', err);
 		if (!item) return res.apiError('not found');
