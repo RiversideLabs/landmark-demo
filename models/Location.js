@@ -19,6 +19,7 @@ Location.add({
 	lastModified: { type: Date, noedit: true, collapse: true },
 	heroImage: { type: Types.CloudinaryImage },
 	heroThumb: {type: Types.Url, hidden: true},
+	heroDetail: {type: Types.Url, hidden: true},
 	location: { type: Types.Location },
 	description: {
 		brief: { type: Types.Html, wysiwyg: true, height: 150 },
@@ -37,7 +38,8 @@ Location.add({
 Location.relationship({ path: 'tours', ref: 'Tour', refPath: 'location' });
 
 Location.schema.pre('save', function(next) {
-	this.heroThumb = this._.heroImage.fill(1000,470);
+	this.heroThumb = this._.heroImage.fill(640,300);
+	this.heroDetail = this._.heroImage.fill(640,640);
 	this.lastModified = Date.now();
 	next();
 });
@@ -49,6 +51,11 @@ Location.schema.virtual('description.full').get(function() {
 Location.schema.virtual('location.formattedAddress').get(function() {
 	return this.location.street1 + ', ' + this.location.suburb + ', ' + this.location.state + ' ' + this.location.postcode;
 });
+
+// Resize hero image for list view
+// Location.schema.virtual('heroThumb').get(function() {
+// 	if (this.heroImage.exists) return this._.heroImage.fill(1000,470);
+// });
 
 Location.defaultColumns = 'commonName, historicName|20%, yearBuilt|20%, publishedDate|20%';
 Location.register();
