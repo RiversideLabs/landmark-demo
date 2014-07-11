@@ -48,7 +48,7 @@ Location.schema.virtual('location.formattedAddress').get(function() {
 });
 
 // Resize hero image for list view
-Location.schema.virtual('heroImage.thumb').get(function() {
+Location.schema.virtual('heroThumb').get(function() {
 	if (this.heroImage.exists) return this._.heroImage.thumbnail(1000,470);
 });
 
