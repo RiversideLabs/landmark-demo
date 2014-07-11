@@ -49,7 +49,7 @@ Location.schema.virtual('location.formattedAddress').get(function() {
 
 // Resize hero image for list view
 Location.schema.virtual('heroThumb').get(function() {
-	if (this.heroImage.exists) return this._.heroImage.thumbnail(1000,470);
+	if (this.location.heroImage.exists) return this._.location.heroImage.thumbnail(1000,470);
 });
 
 Location.defaultColumns = 'commonName, historicName|20%, yearBuilt|20%, publishedDate|20%';
