@@ -29,17 +29,19 @@ Tour.schema.pre('save', function(next) {
 });
 
 Tour.schema.post('save', function(done) {
-  // var doc = this;
-  // if(doc.location) {
-  //   landmark.list('Location').model.findOne().where('_id',doc.location).exec(function(err,data){
-  //     data.tours.push(doc);
-  //     data.save(function(err) {
-  //       if(err)console.log(err);
-  //       //console.log('end pre save txlog');
-  //       //ret();
-  //     });
-  //   });
-  // }
+  var doc = this;
+  if(doc.location) {
+    landmark.list('Location').model.findOne().where('_id',doc.location).exec(function(err,data){
+			if(data.tours.indexOf(doc._id) === -1) {
+				data.tours.push(doc);
+			}
+      data.save(function(err) {
+        if(err)console.log(err);
+        //console.log('end pre save txlog');
+        //ret();
+      });
+    });
+  }
 });
 
 Tour.relationship({ ref: 'Location', path: 'tours' });
