@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "landmark-serve": "~0.1.25",
+    "landmark-serve": "~0.1.27",
     "async": "~0.8.0",
     "underscore": "~1.6.0",
     "moment": "~2.6.0",
