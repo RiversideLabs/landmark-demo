@@ -6,7 +6,7 @@
 
 exports.create = {
 	User: [
-		{ email: 'user@landmarkjs.com', password: 'admin', name: { first: 'Admin', last: 'User' }, isAdmin: true }
+		{ email: 'user@getlandmarkproject.com', password: 'admin', name: { first: 'Admin', last: 'User' }, isAdmin: true }
 	]
 };
 
@@ -21,7 +21,7 @@ var landmark = require('landmark-serve'),
 	User = landmark.list('User');
 
 var admins = [
-	{ email: 'user@landmarkjs.com', password: 'admin', name: { first: 'Admin', last: 'User' } }
+	{ email: 'user@getlandmarkproject.com', password: 'admin', name: { first: 'Admin', last: 'User' } }
 ];
 
 function createAdmin(admin, done) {

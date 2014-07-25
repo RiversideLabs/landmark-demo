@@ -47,7 +47,7 @@ Enquiry.schema.methods.sendNotificationEmail = function(callback) {
 			to: admins,
 			from: {
 				name: 'Landmark Demo',
-				email: 'contact@demo.landmarkjs.com'
+				email: 'contact@demo.getlandmarkproject.com'
 			},
 			subject: 'New Enquiry for Landmark Demo',
 			enquiry: enqiury

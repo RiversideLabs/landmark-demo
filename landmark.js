@@ -6,7 +6,7 @@ require('dotenv').load();
 var landmark = require('landmark-serve');
 
 // Initialise Landmark with your project's configuration.
-// See http://landmarkjs.com/guide/config for available options
+// See http://getlandmarkproject.com/guide/config for available options
 // and documentation.
 
 landmark.init({
