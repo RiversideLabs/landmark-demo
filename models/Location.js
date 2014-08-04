@@ -32,14 +32,41 @@ Location.add({
 	architecturalStyle: { type: Types.Relationship, ref: 'ArchitecturalStyle', many: true },
 	url: { type: Types.Url },
 	images: { type: Types.CloudinaryImages },
+	images_sized: {
+		big: { type: Types.Url, hidden: true },
+		large: { type: Types.Url, hidden: true },
+		medium: { type: Types.Url, hidden: true },
+		small: { type: Types.Url, hidden: true },
+		thumb_x2: { type: Types.Url, hidden: true },
+		thumb: { type: Types.Url, hidden: true }
+  },
 	tours: { type: Types.Relationship, ref: 'Tour', index: true, many: true, hidden: true},
 });
 
 Location.relationship({ path: 'tours', ref: 'Tour', refPath: 'location' });
 
 Location.schema.pre('save', function(next) {
+	var _this = this;
+	
 	this.heroThumb = this._.heroImage.thumbnail(640,300,{ quality: 60 });
 	this.heroDetail = this._.heroImage.thumbnail(640,640,{ quality: 60 });
+	
+	this.images.forEach(function(img) {
+
+    // process images on upload
+    if (img.isModified() || img.isNew()) {
+			_this.processed_images.big    = img.limit(2100, 2100, { quality: 80 });
+      _this.processed_images.large    = img.limit(1600, 1600, { quality: 80 });
+			_this.processed_images.medium    = img.limit(1280, 1280, { quality: 80 });
+			_this.processed_images.small  = img.limit(750, 750,   { quality: 60  });
+      _this.processed_images.thumb_x2  = img.thumbnail(320, 180,   { quality: 40  });
+			_this.processed_images.thumb  = img.thumbnail(160, 90,   { quality: 40  });
+    }
+
+  });
+	
+	
+	
 	this.lastModified = Date.now();
 	next();
 });
