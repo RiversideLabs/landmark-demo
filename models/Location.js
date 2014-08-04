@@ -55,12 +55,12 @@ Location.schema.pre('save', function(next) {
 
     // process images on upload
     if (img.isModified() || img.isNew()) {
-			_this.processed_images.big    = img.limit(2100, 2100, { quality: 80 });
-      _this.processed_images.large    = img.limit(1600, 1600, { quality: 80 });
-			_this.processed_images.medium    = img.limit(1280, 1280, { quality: 80 });
-			_this.processed_images.small  = img.limit(750, 750,   { quality: 60  });
-      _this.processed_images.thumb_x2  = img.thumbnail(320, 180,   { quality: 40  });
-			_this.processed_images.thumb  = img.thumbnail(160, 90,   { quality: 40  });
+			_this.images_sized.big    = img.limit(2100, 2100, { quality: 80 });
+      _this.images_sized.large    = img.limit(1600, 1600, { quality: 80 });
+			_this.images_sized.medium    = img.limit(1280, 1280, { quality: 80 });
+			_this.images_sized.small  = img.limit(750, 750,   { quality: 60  });
+      _this.images_sized.thumb_x2  = img.thumbnail(320, 180,   { quality: 40  });
+			_this.images_sized.thumb  = img.thumbnail(160, 90,   { quality: 40  });
     }
 
   });
